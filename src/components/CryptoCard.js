@@ -6,31 +6,34 @@ class CryptoCard extends React.Component {
         super(props)
 
         this.state = {
-            name: this.props.name,
-            currency: this.props.currency,
-            price: this.props.price,
-            description: this.props.description,
-            image: this.props.image,
-            link: this.props.link
+            name: this.props.coin.name + ' (' + this.props.coin.symbol + ')',
+            currency: '€',
+            price: this.props.coin.quote.EUR.price.toFixed(2),
+            description: this.props.coin.metadata.description,
+            logo: this.props.coin.metadata.logo,
+            link: "coin/" + this.props.coin.slug
         }
     }
 
     render() {
         return (
-            <div className="card text-white bg-primary crypto-card">
+            <div className="card text-white bg-primary crypto-card mb-4">
                 <div className="card-body">
                     <h5 className="card-title float-left">{this.state.name}</h5>
                     <p className="price float-right"><span className="currency">{this.state.currency}</span>{this.state.price}</p>
 
                     <div className="clearfix"></div>
 
-                    <p className="card-text">{this.state.description}</p>
+                    <p className="card-text">{this.state.description.substring(0, 170)}...</p>
                 </div>
                 <hr />
                 <div className="card-body">
-                    <img src={this.state.image} alt={this.state.name} className="rounded-circle float-left" />
-                    <p className="float-left">Read more about {this.state.name}</p>
-                    <Link to={this.state.link} className="btn btn-sm btn-light float-right text-uppercase" role="button" aria-disabled="true">More info</Link>
+                    <img src={this.state.logo} alt={this.state.name} className="rounded-circle float-left" width="25" />
+                    <p className="float-left ml-3">Read more about {this.state.name}</p>
+                    <Link to={{
+                        pathname: this.state.link,
+                        state: this.props.coin
+                        }} className="btn btn-sm btn-light float-right text-uppercase" role="button" aria-disabled="true">More info</Link>
                 </div>
             </div>
         )

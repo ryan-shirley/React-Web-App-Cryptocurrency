@@ -8,11 +8,20 @@ class CryptoCard extends React.Component {
 
         this.state = {
             name: this.props.coin.name + ' (' + this.props.coin.symbol + ')',
-            currency: '€',
-            price: this.props.coin.quote.EUR.price.toFixed(2),
+            currency: this.props.currency,
+            price: this.props.coin.quote[this.props.currency].price.toFixed(2),
             description: this.props.coin.metadata.description,
             logo: this.props.coin.metadata.logo,
             link: "coin/" + this.props.coin.slug
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(this.props != nextProps) {
+            this.setState({
+                currency: nextProps.currency,
+                price: nextProps.coin.quote[nextProps.currency].price.toFixed(4)
+            });
         }
     }
 

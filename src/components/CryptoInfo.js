@@ -19,6 +19,16 @@ class CryptoInfo extends React.Component {
         this.sendToCrypto = this.sendToCrypto.bind(this);
     }
 
+    componentWillReceiveProps(nextProps) {
+        if(this.props != nextProps) {
+            this.setState({
+                currency: nextProps.currency,
+                price: nextProps.coin.quote[nextProps.currency].price.toFixed(4),
+                volume24hr: nextProps.coin.quote[nextProps.currency].volume_24h,
+            });
+        }
+    }
+
     sendToCrypto = () => {
         this.props.history.push("/coin/" + this.state.slug, this.props.coin);
     }

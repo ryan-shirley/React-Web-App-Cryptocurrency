@@ -16,87 +16,129 @@ class CryptoList extends React.Component {
 
         // Binding this to work in the callback
         this.currencyChange = this.currencyChange.bind(this)
+        this.fetchLatest = this.fetchLatest.bind(this)
     }
 
     componentDidMount() {
-        // Blocked by CORS - Uses Moesif CORS chrome extension to bypass.
-        fetch(process.env.REACT_APP_COIN_MARKET_MAP_API_URI + 'cryptocurrency/listings/latest?start=1&limit='+ this.state.amount +'&convert=' + this.state.currency, { 
-            method: 'GET', 
-            headers: new Headers({
-              'X-CMC_PRO_API_KEY': process.env.REACT_APP_COIN_MARKET_MAP_API_KEY
+        if(this.state.display === 'table') {
+            this.fetchLatest()
+            .then((data) => {
+                this.setState({ 
+                    coins: data.coins
+                })
             })
-        })
-        .then(res => res.json()) // Parse output to json
-        .then((data) => {
-            if(this.state.display === 'card') {
-                let topCoins = data.data
-
-                // Get Top 4 coins Metadata
-                fetch(process.env.REACT_APP_COIN_MARKET_MAP_API_URI + `cryptocurrency/info?id=${topCoins[0].id},${topCoins[1].id},${topCoins[2].id},${topCoins[3].id}`, { 
-                    method: 'GET', 
-                    headers: new Headers({
-                    'X-CMC_PRO_API_KEY': process.env.REACT_APP_COIN_MARKET_MAP_API_KEY
+        }
+        else if (this.state.display === 'card') {
+            this.fetchLatest()
+            .then((data) => {
+                this.fetchMetaData(data.coins)
+                .then((coins) => {
+                    this.setState({ 
+                        coins: coins
                     })
                 })
-                .then(resp => resp.json()) // Parse output to json
-                .then((metadata) => {
-                    metadata = metadata.data
-                    // Add metadata to price
-                    const top4coins = topCoins.map((coin) => {
-                        coin.metadata = metadata[coin.id]
-                        return coin;
-                    })
-
-                    this.setState({ coins: top4coins })
-                })
-                .catch((err2) => {
-                    console.log('API call error:', err2.message);
-                });
-            }
-            else {
-                this.setState({ coins: data.data })
-            }
-        })
-        .catch(console.log)
+            })
+        }
     }
 
     currencyChange(event) {
-        console.log('Currency Change')
         const newCurrency = event.target.value
-        console.log(newCurrency)
-        
-        // Blocked by CORS - Uses Moesif CORS chrome extension to bypass.
-        fetch(process.env.REACT_APP_COIN_MARKET_MAP_API_URI + 'cryptocurrency/listings/latest?start=1&limit=100&convert=' + newCurrency, { 
-            method: 'GET', 
-            headers: new Headers({
-              'X-CMC_PRO_API_KEY': process.env.REACT_APP_COIN_MARKET_MAP_API_KEY
-            })
-          })
 
-        .then(res => res.json()) // Parse output to json
-        .then((data) => {
-            this.setState({ 
-                coins: data.data,
-                currency: newCurrency
+        if(this.state.display === 'table') {
+            this.fetchLatest(newCurrency)
+                .then((data) => {
+                    this.setState({ 
+                        coins: data.coins,
+                        currency: data.currency
+                    })
+                })
+        }
+        else if (this.state.display === 'card') {
+            this.fetchLatest(newCurrency)
+            .then((data) => {
+                this.fetchMetaData(data.coins)
+                .then((coins) => {
+                    this.setState({ 
+                        coins: coins,
+                        currency: data.currency
+                    })
+                })
+            })
+        }
+    }
+
+    fetchLatest(newCurrency) {
+        const state = this.state
+
+        return new Promise(function(resolve, reject) {
+
+            const currency = newCurrency || state.currency
+
+            // Blocked by CORS - Uses Moesif CORS chrome extension to bypass.
+            fetch(process.env.REACT_APP_COIN_MARKET_MAP_API_URI + 'cryptocurrency/listings/latest?start=1&limit='+ state.amount +'&convert=' + currency, { 
+                method: 'GET', 
+                headers: new Headers({
+                'X-CMC_PRO_API_KEY': process.env.REACT_APP_COIN_MARKET_MAP_API_KEY
+                })
+            })
+            .then(res => res.json()) // Parse output to json
+            .then((data) => {
+                resolve({
+                    coins: data.data,
+                    currency: currency
+                })
+            })
+            .catch((err) => {
+                reject(err)
             })
         })
-        .catch(console.log)
+    }
+
+    fetchMetaData(data) {
+        return new Promise(function(resolve, reject) {
+            let topCoins = data
+
+            // Get Top 4 coins Metadata
+            fetch(process.env.REACT_APP_COIN_MARKET_MAP_API_URI + `cryptocurrency/info?id=${topCoins[0].id},${topCoins[1].id},${topCoins[2].id},${topCoins[3].id}`, { 
+                method: 'GET', 
+                headers: new Headers({
+                'X-CMC_PRO_API_KEY': process.env.REACT_APP_COIN_MARKET_MAP_API_KEY
+                })
+            })
+            .then(resp => resp.json()) // Parse output to json
+            .then((metadata) => {
+                metadata = metadata.data
+                // Add metadata to price
+                const top4coins = topCoins.map((coin) => {
+                    coin.metadata = metadata[coin.id]
+                    return coin;
+                })
+
+                resolve(top4coins)
+            })
+            .catch((err) => {
+                reject('API call error: ', err.message)
+            });
+        })
     }
 
     render() {
+        const currencyChanger = (
+            <form>
+                <div className="form-group">
+                    <label htmlFor="currency">Currency</label>
+                    <select className="form-control" id="currency" onChange={this.currencyChange}>
+                        <option value="EUR">EUR</option>
+                        <option value="USD">USD</option>
+                        <option value="GBP">GBP</option>
+                    </select>
+                </div>
+            </form>
+        )
         if(this.state.display === 'table') {
             return (
                 <div>
-                    <form>
-                        <div className="form-group">
-                            <label htmlFor="currency">Currency</label>
-                            <select className="form-control" id="currency" onChange={this.currencyChange}>
-                                <option value="EUR">EUR</option>
-                                <option value="USD">USD</option>
-                            </select>
-                        </div>
-                    </form>
-            
+                    {currencyChanger}
                     
                     <table className="table table-hover table-striped">
                         <thead className="thead-dark">
@@ -123,12 +165,20 @@ class CryptoList extends React.Component {
         }
         else if(this.state.display === 'card') {
             return (
-                this.state.coins.map((coin) => (
-                    <div className="col-md-6" key={coin.id}>
-                        <CryptoCard 
-                            coin={coin}/>
+                <div className="col-md-12">
+                    <div className="row">
+                        <div className="col-md-12">
+                            {currencyChanger}
+                        </div>
+                        {this.state.coins.map((coin) => (
+                            <div className="col-md-6" key={coin.id}>
+                                <CryptoCard 
+                                    coin={coin}
+                                    currency={this.state.currency} />
+                            </div>
+                        ))}
                     </div>
-                ))
+                </div>
             )
         }
     }

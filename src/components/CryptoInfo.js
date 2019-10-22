@@ -1,24 +1,26 @@
 import React from 'react';
-import { withRouter} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
 class CryptoInfo extends React.Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            name: this.props.name,
+            name: this.props.coin.name,
             currency: this.props.currency,
-            price: this.props.price,
-            volume24hr: this.props.volume24hr,
-            change24h: this.props.change24h,
-            change7day: this.props.change7day
+            price: this.props.coin.quote[this.props.currency].price.toFixed(4),
+            volume24hr: this.props.coin.quote[this.props.currency].volume_24h,
+            change24h: this.props.coin.quote[this.props.currency].percent_change_24h.toFixed(2),
+            change7day: this.props.coin.quote[this.props.currency].percent_change_7d.toFixed(2),
+            slug: this.props.coin.slug
         }
 
         this.sendToCrypto = this.sendToCrypto.bind(this);
     }
 
     sendToCrypto = () => {
-        this.props.history.push("/crypto/id");
+        this.props.history.push("/coin/" + this.state.slug, this.props.coin);
     }
 
     formatNumber(num) {
@@ -37,5 +39,10 @@ class CryptoInfo extends React.Component {
         )
     }
 }
+
+CryptoInfo.propTypes = {
+    coin: PropTypes.object.isRequired,
+    currency: PropTypes.string.isRequired
+}      
 
 export default withRouter(CryptoInfo)

@@ -9,7 +9,9 @@ class List extends React.Component {
                     <h3>The <strong>Top</strong> 100 Cryptocurrencies</h3>
                 </div>
                 <div className="col-md-12">
-                    <CryptoList />
+                    <CryptoList 
+                    display="table"
+                    amount={100} />
                 </div>
             </div>
         )

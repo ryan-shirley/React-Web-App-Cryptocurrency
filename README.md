@@ -13,4 +13,4 @@ The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
 ## Firebase Link
-This project is hosted on Firebase and can be viewed here: [https://react-web-app-cryptocurrency.firebaseapp.com/](https://react-web-app-cryptocurrency.firebaseapp.com/)
+This project is hosted on Firebase and can be viewed here: [https://react-web-app-cryptocurrency.firebaseapp.com/](https://react-web-app-cryptocurrency.firebaseapp.com/). Please note you will need the [Moesif Orign & CORS Changer](https://chrome.google.com/webstore/detail/moesif-orign-cors-changer/digfbfaphojjndkpccljibejjbppifbc) chrome browser extention (or similar for other browsers) in order for the application to function correctly.

@@ -17,7 +17,7 @@ class CryptoCard extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if(this.props != nextProps) {
+        if(this.props !== nextProps) {
             this.setState({
                 currency: nextProps.currency,
                 price: nextProps.coin.quote[nextProps.currency].price.toFixed(4)

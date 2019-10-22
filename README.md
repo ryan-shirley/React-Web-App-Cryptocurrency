@@ -1,4 +1,4 @@
-This is a 4th year computer science project. Part of a JavaScript module with this project focusing on React and consuming an API. In particular I chose a cryptocurrency API to interact with.
+This is a 4th year Computer Science project. Part of a JavaScript module with this project focusing on React and consuming an API. In particular I chose a cryptocurrency API to interact with.
 
 ## Run Project
 

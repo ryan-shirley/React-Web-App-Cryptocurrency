@@ -127,7 +127,7 @@ class CryptoList extends React.Component {
             <form>
                 <div className="form-group">
                     <label htmlFor="currency">Currency</label>
-                    <select className="form-control" id="currency" onChange={this.currencyChange}>
+                    <select className="form-control ml-2" id="currency" onChange={this.currencyChange}>
                         <option value="EUR">EUR</option>
                         <option value="USD">USD</option>
                         <option value="GBP">GBP</option>
@@ -137,7 +137,7 @@ class CryptoList extends React.Component {
         )
         if(this.state.display === 'table') {
             return (
-                <div>
+                <>
                     {currencyChanger}
                     
                     <table className="table table-hover table-striped">
@@ -160,16 +160,15 @@ class CryptoList extends React.Component {
                         ))}
                         </tbody>
                     </table>
-                </div>
+                </>
             )
         }
         else if(this.state.display === 'card') {
             return (
-                <div className="col-md-12">
+                <>
+                    {currencyChanger}
+                    
                     <div className="row">
-                        <div className="col-md-12">
-                            {currencyChanger}
-                        </div>
                         {this.state.coins.map((coin) => (
                             <div className="col-md-6" key={coin.id}>
                                 <CryptoCard 
@@ -178,7 +177,7 @@ class CryptoList extends React.Component {
                             </div>
                         ))}
                     </div>
-                </div>
+                </>
             )
         }
     }

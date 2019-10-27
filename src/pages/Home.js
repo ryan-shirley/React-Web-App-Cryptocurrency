@@ -1,5 +1,6 @@
 import React from 'react';
 import CryptoList from '../components/CryptoList'
+import Button from '../components/Button'
 
 class Home extends React.Component {
     render() {
@@ -7,6 +8,13 @@ class Home extends React.Component {
             <>
                 <h1 className="text-center mb-3">The <strong>best</strong> Cryptocurrency Data Brought<br />
                     to your finger tips.</h1>
+
+                <Button
+                    text='All Coins'
+                    link='/list'
+                    style='danger'
+                    classes='btn-md text-uppercase'
+                />
 
 
                 <div className="row">

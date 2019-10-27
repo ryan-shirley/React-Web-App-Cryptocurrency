@@ -12,15 +12,7 @@ class CryptoNav extends React.Component {
 
         return (
             <nav className={"navbar navbar-expand-lg pb-4 " + (themeStyle === 'dark' ? 'bg-light' : themeStyle === 'light' ? 'bg-dark' : '')}>
-                <Link to='/' className="navbar-brand">CryptoKing.</Link>
-                {/* Add in mobile burger icon here */}
-                <div className="collapse navbar-collapse">
-                    <ul className="navbar-nav">
-                        <li className="nav-item">
-                            <Link to='/list' className="nav-link">List</Link>
-                        </li>
-                    </ul>
-                </div>
+                <Link to='/' className="navbar-brand text-danger text-uppercase" style={{margin: '0 auto'}}>Crypto<span className="ml-1" style={{fontSize: '12px'}}>King.</span></Link>
             </nav>
         )
     }

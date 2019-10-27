@@ -140,8 +140,8 @@ class CryptoList extends React.Component {
                 <>
                     {currencyChanger}
                     
-                    <table className="table table-hover table-striped">
-                        <thead className="thead-dark">
+                    <table className="table table-dark table-hover table-striped">
+                        <thead className="bg-warning">
                             <tr>
                                 <th scope="col">Name</th>
                                 <th scope="col">Price</th>

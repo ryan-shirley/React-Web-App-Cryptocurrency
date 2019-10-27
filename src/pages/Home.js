@@ -6,15 +6,19 @@ class Home extends React.Component {
     render() {
         return (
             <>
-                <h1 className="text-center mb-3">The <strong>best</strong> Cryptocurrency Data Brought<br />
-                    to your finger tips.</h1>
+                <section className="hero">
+                    <h1 className="text-center">The <strong>best</strong> Cryptocurrency Data Brought<br />
+                        to your finger tips.</h1>
 
-                <Button
-                    text='All Coins'
-                    link='/list'
-                    style='danger'
-                    classes='btn-md text-uppercase'
-                />
+                    <p className="text-center">
+                        <Button
+                            text='All Coins'
+                            link='/list'
+                            style='danger'
+                            classes='btn-md text-uppercase'
+                        />
+                    </p>
+                </section>
 
 
                 <div className="row">

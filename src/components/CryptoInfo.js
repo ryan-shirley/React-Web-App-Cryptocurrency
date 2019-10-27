@@ -6,9 +6,20 @@ class CryptoInfo extends React.Component {
     constructor(props) {
         super(props)
 
+        let currency = this.props.currency
+        if(currency === 'EUR') {
+            currency = '€'
+        }
+        else if (currency === 'USD') {
+            currency = '$'
+        }
+        else if (currency === 'GPB') {
+            currency = '£'
+        }
+
         this.state = {
             name: this.props.coin.name,
-            currency: this.props.currency,
+            currency: currency,
             price: this.props.coin.quote[this.props.currency].price.toFixed(4),
             volume24hr: this.props.coin.quote[this.props.currency].volume_24h,
             change24h: this.props.coin.quote[this.props.currency].percent_change_24h.toFixed(2),

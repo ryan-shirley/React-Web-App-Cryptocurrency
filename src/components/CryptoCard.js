@@ -62,8 +62,8 @@ class CryptoCard extends React.Component {
                     <p className="card-text">{this.state.description.substring(0, 170)}...</p>
                 </div>
                 <div className="card-footer">
-                    <img src={this.state.logo} alt={this.state.name} className="rounded-circle float-left" width="25" />
-                    <p className="float-left ml-3 mb-0">Read more about {this.state.name}</p>
+                    <img src={this.state.logo} alt={this.state.name} className="rounded-circle float-left mt-1" width="25" />
+                    <p className="float-left ml-3 mb-0 mt-1">Read more about {this.state.name}</p>
                     <Button
                         text='More info'
                         state={this.props.coin}

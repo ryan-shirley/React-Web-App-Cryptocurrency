@@ -10,7 +10,7 @@ $dark: #1D1D32;
 //
 // Define common padding and border radius sizes and more.
 
-$border-radius: .9375rem !default;
+$border-radius: .9375rem;
 
 
 // Cards
@@ -19,7 +19,7 @@ $card-border-width: 0;
 
 // Buttons
 
-$btn-padding-y: 0.75rem;
+$btn-padding-y: 0.5rem;
 $btn-padding-x: 2.813rem;
 
 $btn-padding-y-sm: $btn-padding-y / 2;
@@ -28,6 +28,11 @@ $btn-padding-x-sm: $btn-padding-x / 1.5;
 $btn-padding-y-lg: $btn-padding-y;
 $btn-padding-x-lg: $btn-padding-x;
 
-$btn-border-radius: .25rem !default;
-$btn-border-radius-lg: .3rem !default;
-$btn-border-radius-sm: .2rem !default;
+$btn-border-radius: .25rem;
+$btn-border-radius-lg: .3rem;
+$btn-border-radius-sm: .2rem;
+
+
+// Tables
+
+$table-dark-bg:               $dark !default;

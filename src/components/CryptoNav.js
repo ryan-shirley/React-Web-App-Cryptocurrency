@@ -12,7 +12,7 @@ class CryptoNav extends React.Component {
 
         return (
             <nav className={"navbar navbar-expand-lg pb-4 " + (themeStyle === 'dark' ? 'bg-light' : themeStyle === 'light' ? 'bg-dark' : '')}>
-                <Link to='/' className="navbar-brand text-danger text-uppercase" style={{margin: '0 auto'}}>Crypto<span className="ml-1" style={{fontSize: '12px'}}>King.</span></Link>
+                <Link to='/' className="navbar-brand text-danger text-uppercase font-weight-bolder" style={{margin: '0 auto'}}>Crypto<span className="ml-1 font-weight-lighter" style={{fontSize: '12px'}}>King.</span></Link>
             </nav>
         )
     }

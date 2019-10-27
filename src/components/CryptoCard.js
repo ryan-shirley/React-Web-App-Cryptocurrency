@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+
+// Theme Context
+import { ThemeContext } from "../ThemeContext";
 
 class CryptoCard extends React.Component {
     constructor(props) {
@@ -25,9 +28,13 @@ class CryptoCard extends React.Component {
         }
     }
 
+    static contextType = ThemeContext;
+
     render() {
+        const themeStyle = this.context;
+
         return (
-            <div className="card text-white bg-primary crypto-card mb-4">
+            <div className={"card crypto-card mb-4 " + themeStyle}>
                 <div className="card-body">
                     <h5 className="card-title float-left">{this.state.name}</h5>
                     <p className="price float-right"><span className="currency">{this.state.currency}</span>{this.state.price}</p>
@@ -36,14 +43,13 @@ class CryptoCard extends React.Component {
 
                     <p className="card-text">{this.state.description.substring(0, 170)}...</p>
                 </div>
-                <hr />
-                <div className="card-body">
+                <div className="card-footer">
                     <img src={this.state.logo} alt={this.state.name} className="rounded-circle float-left" width="25" />
-                    <p className="float-left ml-3">Read more about {this.state.name}</p>
+                    <p className="float-left ml-3 mb-0">Read more about {this.state.name}</p>
                     <Link to={{
                         pathname: this.state.link,
                         state: this.props.coin
-                        }} className="btn btn-sm btn-light float-right text-uppercase" role="button" aria-disabled="true">More info</Link>
+                        }} className="btn btn-sm btn-dark float-right text-uppercase" role="button" aria-disabled="true">More info</Link>
                 </div>
             </div>
         )

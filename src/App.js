@@ -12,16 +12,20 @@ import CryptoNav from './components/CryptoNav'
 
 function App() {
     return (
-        <BrowserRouter>
-            <CryptoNav />
-            <div className="container">
-                <Switch>
-                    <Route exact path="/" component={Home} />
-                    <Route path="/list" component={List} />
-                    <Route path="/coin/:slug" component={Coin} />
-                </Switch>
-            </div>
-        </BrowserRouter>
+        <main className="bg-danger">
+            <BrowserRouter>
+                <CryptoNav />
+                <div className="bg-light mx-4 mt-n3 position-relative pt-5" style={{zIndex:1}}>
+                    <div className="container">
+                        <Switch>
+                            <Route exact path="/" component={Home} />
+                            <Route path="/list" component={List} />
+                            <Route path="/coin/:slug" component={Coin} />
+                        </Switch>
+                    </div>
+                </div>
+            </BrowserRouter>
+        </main>
     );
 }
 

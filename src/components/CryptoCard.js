@@ -59,8 +59,6 @@ class CryptoCard extends React.Component {
                         </div>
                     </div>
 
-                    <div className="clearfix"></div>
-
                     <p className="card-text">{this.state.description.substring(0, 170)}...</p>
                 </div>
                 <div className="card-footer">

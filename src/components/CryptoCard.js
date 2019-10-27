@@ -5,6 +5,9 @@ import {Link} from 'react-router-dom';
 // Theme Context
 import { ThemeContext } from "../ThemeContext";
 
+// Components
+import Button from './Button'
+
 class CryptoCard extends React.Component {
     constructor(props) {
         super(props)
@@ -23,7 +26,7 @@ class CryptoCard extends React.Component {
         if(this.props !== nextProps) {
             this.setState({
                 currency: nextProps.currency,
-                price: nextProps.coin.quote[nextProps.currency].price.toFixed(4)
+                price: nextProps.coin.quote[nextProps.currency].price.toFixed(2)
             });
         }
     }
@@ -36,8 +39,14 @@ class CryptoCard extends React.Component {
         return (
             <div className={"card crypto-card mb-4 " + themeStyle}>
                 <div className="card-body">
-                    <h5 className="card-title float-left">{this.state.name}</h5>
-                    <p className="price float-right"><span className="currency">{this.state.currency}</span>{this.state.price}</p>
+                    <div className="row align-items-end">
+                        <div className="col">
+                            <h4 className="card-title mb-0 mt-3">{this.state.name}</h4>
+                        </div>
+                        <div className="col">
+                            <p className="price text-right mb-0"><span className="currency">{this.state.currency}</span>{this.state.price}</p>
+                        </div>
+                    </div>
 
                     <div className="clearfix"></div>
 
@@ -46,10 +55,13 @@ class CryptoCard extends React.Component {
                 <div className="card-footer">
                     <img src={this.state.logo} alt={this.state.name} className="rounded-circle float-left" width="25" />
                     <p className="float-left ml-3 mb-0">Read more about {this.state.name}</p>
-                    <Link to={{
-                        pathname: this.state.link,
-                        state: this.props.coin
-                        }} className="btn btn-sm btn-dark float-right text-uppercase" role="button" aria-disabled="true">More info</Link>
+                    <Button
+                        text='More info'
+                        state={this.props.coin}
+                        link={this.state.link}
+                        style='dark'
+                        classes='btn-sm float-right text-uppercase'
+                    />
                 </div>
             </div>
         )

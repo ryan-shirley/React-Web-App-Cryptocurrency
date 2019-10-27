@@ -1,15 +1,13 @@
 // Main CSS
 
-// Bootstrap Overrides
-// @import 'scss/bootstrap-overrides.scss';
+// Bootstrap Pre Default Variables
+@import './scss/bootstrap/pre_defaults';
 
-// Import Bootstrap config first
+// Bootstrap config
 @import './scss/bootstrap/config';
 
-// Import all Bootstrap_ext here
-// @import './scss/bootstrap_ext/button';
+// Bootstrap Component Overrides
+@import './scss/bootstrap/bootstrap-overrides';
 
-
-
-// @import '~bootstrap/scss/bootstrap';
-// @import "~bootstrap/scss/navbar";
+// Theme Styles
+@import './scss/theme/app';

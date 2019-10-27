@@ -1,5 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
+
+// Theme Context
+import { ThemeContext } from "../ThemeContext";
 
 class Coin extends React.Component {
     constructor(props) {
@@ -8,6 +12,12 @@ class Coin extends React.Component {
         const metadata = this.props.location.state.metadata
         delete this.props.location.state.metadata
         const latestMarketData = this.props.location.state
+
+        // Remove Empty Url's
+        if(metadata) {
+            let urls = this.cleanUrls(metadata.urls)
+            metadata.urls = urls
+        }
 
         this.state = {
             latestMarketData: latestMarketData,
@@ -26,7 +36,11 @@ class Coin extends React.Component {
             })
             .then(resp => resp.json()) // Parse output to json
             .then((metadata) => {
-                this.setState({ metadata: metadata.data[this.state.latestMarketData.id] })
+                let data = metadata.data[this.state.latestMarketData.id]
+                let urls = this.cleanUrls(data.urls)
+                data.urls = urls
+
+                this.setState({ metadata: data })
             })
             .catch((err) => {
                 console.log('API call error:', err.message);
@@ -34,17 +48,73 @@ class Coin extends React.Component {
         }
     }
 
+    cleanUrls(urls) {
+        const listUrls = []
+        Object.keys(urls).forEach(key => {
+            if(urls[key].length !== 0) {
+                listUrls.push({
+                    link: urls[key][0],
+                    name: key.split('_').join(' ')
+                })
+            }
+        });
+        
+        return listUrls;
+    }
+
+    static contextType = ThemeContext;
+
     render() {
-        return (
-            <div className="row">
-                <div className="col-12 text-center mb-3">
-                    <h3>{this.state.latestMarketData.name + ' ' + this.state.latestMarketData.symbol}</h3>
+        const themeStyle = this.context;
+
+        if(this.state.metadata) {
+            return (
+                <div className="row">
+                    <div className="col-12 text-center mb-3">
+                        <h1>Coin Overview</h1>
+                    </div>
+                    <div className="col-md-6">
+                        <div className={"card mb-4 " + themeStyle}>
+                            <div className="card-body">
+                                <p className=" card-title text-muted text-capitalize">Name</p>
+                                <h4>{this.state.latestMarketData.name + ' (' + this.state.latestMarketData.symbol + ')'}</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-md-6">
+                        <div className={"card mb-4 " + themeStyle}>
+                            <div className="card-body">
+                                <p className=" card-title text-muted text-capitalize">Logo</p>
+                                <img src={this.state.metadata.logo} alt={this.state.name} className="rounded-circle mt-1" width="32" />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-md-8">
+                        <div className={"card mb-4 " + themeStyle}>
+                            <div className="card-body">
+                                <p className=" card-title text-muted text-capitalize">Description</p>
+                                <p>{this.state.metadata.description}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-md-4">
+                        <div className={"card mb-4 " + themeStyle}>
+                            <div className="card-body">
+                                <p className=" card-title text-muted text-capitalize">Links</p>
+                                <ul className="list-group list-group-flush">
+                                    {this.state.metadata.urls.map((url) => (
+                                        <a href={url.link} className="list-group-item list-group-item-action bg-light text-capitalize" key={url.name} target='_blank'>{url.name}</a>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div className="col-md-12">
-                    <p>Circulating Supply</p>
-                </div>
-            </div>
-        )
+            )
+        }
+        else {
+            return 'Loading data...'
+        }
     }
 }
 

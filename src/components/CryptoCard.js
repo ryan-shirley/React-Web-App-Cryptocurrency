@@ -1,6 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
 
 // Theme Context
 import { ThemeContext } from "../ThemeContext";

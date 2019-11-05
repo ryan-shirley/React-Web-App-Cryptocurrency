@@ -44,7 +44,7 @@ class CryptoCard extends React.Component {
     static contextType = ThemeContext;
 
     render() {
-        const themeStyle = this.context;
+        const themeStyle = this.context.style;
 
         return (
             <div className={"card crypto-card mb-4 " + themeStyle}>

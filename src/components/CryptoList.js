@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import CryptoInfo from '../components/CryptoInfo'
 import CryptoCard from '../components/CryptoCard'
 
+// Theme Context
+import { ThemeContext } from "../ThemeContext";
+
 class CryptoList extends React.Component {
     constructor(props) {
         super(props)
@@ -122,6 +125,8 @@ class CryptoList extends React.Component {
         })
     }
 
+    static contextType = ThemeContext;
+
     render() {
         const currencyChanger = (
             <form>
@@ -136,11 +141,13 @@ class CryptoList extends React.Component {
             </form>
         )
         if(this.state.display === 'table') {
+            const themeStyle = this.context.style;
+
             return (
                 <>
                     {currencyChanger}
                     
-                    <table className="table table-dark table-hover table-striped">
+                    <table className={"table table-"+ themeStyle + " table-hover table-striped"}>
                         <thead className="bg-warning">
                             <tr>
                                 <th scope="col">Name</th>

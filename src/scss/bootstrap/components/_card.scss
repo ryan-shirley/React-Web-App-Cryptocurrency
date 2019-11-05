@@ -6,13 +6,32 @@
         .card-footer {
             border-top: 1px solid $dark;
             background-color: $warning;
-            border-bottom-left-radius: $border-radius;
-            border-bottom-right-radius: $border-radius;
+        }
+
+        .list-group-item {
+            background-color: $light;
         }
     }
-    // &.light {
-    //     background-color: $dark;
-    // }
+    &.light {
+        background-color: $dark;
+        color: $light;
+
+        .card-footer {
+            color: $dark;
+            border-top: 1px solid $dark;
+            background-color: $warning;
+        }
+
+        .list-group-item {
+            color: $white;
+            background-color: $dark;
+        }
+    }
+
+    .card-footer {
+        border-bottom-left-radius: $border-radius;
+        border-bottom-right-radius: $border-radius;
+    }
 
 }
 

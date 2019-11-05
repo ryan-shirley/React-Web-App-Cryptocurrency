@@ -64,7 +64,7 @@ class Coin extends React.Component {
     static contextType = ThemeContext;
 
     render() {
-        const themeStyle = this.context;
+        const themeStyle = this.context.style;
 
         if(this.state.metadata) {
             return (
@@ -99,10 +99,10 @@ class Coin extends React.Component {
                     <div className="col-md-4">
                         <div className={"card mb-4 " + themeStyle}>
                             <div className="card-body">
-                                <p className=" card-title text-muted text-capitalize">Links</p>
+                                <p className="card-title text-muted text-capitalize">Links</p>
                                 <ul className="list-group list-group-flush">
                                     {this.state.metadata.urls.map((url) => (
-                                        <a href={url.link} className="list-group-item list-group-item-action bg-light text-capitalize" key={url.name} target='_blank' rel="noopener noreferrer">{url.name}</a>
+                                        <a href={url.link} className="list-group-item list-group-item-action text-capitalize" key={url.name} target='_blank' rel="noopener noreferrer">{url.name}</a>
                                     ))}
                                 </ul>
                             </div>

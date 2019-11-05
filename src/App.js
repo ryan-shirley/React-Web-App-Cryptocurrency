@@ -17,28 +17,44 @@ class App extends React.Component {
     constructor() {
         super()
 
+        this.toggleTheme = () => {
+            console.log('chaning theme');
+            
+            this.setState(state => ({
+              style:
+                state.style === 'dark'
+                  ? 'light'
+                  : 'dark',
+            }));
+          };
+
         this.state = {
-            style: 'dark'
+            style: 'dark',
+            toggleTheme: this.toggleTheme
         }
     }
 
     render() {
         return (
-            <ThemeContext.Provider value={this.state.style}>
-                <main className={"bg-danger pb-4 theme-" + this.state.style}>
-                    <BrowserRouter>
-                        <CryptoNav />
-                        <div className="bg-dark mx-4 mt-n3 position-relative py-5" style={{zIndex:1}}>
-                            <div className="container">
-                                <Switch>
-                                    <Route exact path="/" component={Home} />
-                                    <Route path="/list" component={List} />
-                                    <Route path="/coin/:slug" component={Coin} />
-                                </Switch>
-                            </div>
-                        </div>
-                    </BrowserRouter>
-                </main>
+            <ThemeContext.Provider value={this.state}>
+                <ThemeContext.Consumer>
+                    {({style, toggleTheme}) => (
+                        <main className={"bg-danger pb-4 theme-" + style}>
+                            <BrowserRouter>
+                                <CryptoNav />
+                                <div className={"bg-" + style  +" mx-4 mt-n3 position-relative py-5"} style={{zIndex:1}}>
+                                    <div className="container">
+                                        <Switch>
+                                            <Route exact path="/" component={Home} />
+                                            <Route path="/list" component={List} />
+                                            <Route path="/coin/:slug" component={Coin} />
+                                        </Switch>
+                                    </div>
+                                </div>
+                            </BrowserRouter>
+                        </main>
+                    )}
+                </ThemeContext.Consumer>
             </ThemeContext.Provider>
         );
     }

@@ -1,0 +1,13 @@
+nav {
+    &.bg-light {
+        .custom-switch {
+            color: $dark;
+        }
+    }
+
+    &.bg-dark {
+        .custom-switch {
+            color: $light;
+        }
+    }
+}
